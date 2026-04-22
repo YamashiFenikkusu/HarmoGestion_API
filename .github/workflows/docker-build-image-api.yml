@@ -1,0 +1,32 @@
+name: docker-build-image-api.yml
+on:
+    push:
+        branches:
+            - cicd
+            - main
+    pull_request:
+        types: [opened, synchronize, reopened]
+docker-build-image-api:
+    if: ${{ github.ref == 'refs/heads/main' }}
+    runs-on: ubuntu-latest
+    needs:
+        - project-build
+    steps:
+        - uses: actions/checkout@v5
+        - name: Connexion à Docker Hub
+          uses: docker/login-action@v3
+          with:
+              username: ${{ secrets.DOCKERHUB_USER }}
+              password: ${{ secrets.DOCKERHUB_PASSWORD }}
+        - name: Téléchargement d'un artefact
+          uses: actions/download-artifact@v4
+          with:
+              name: package.jar
+        - name: Build et pousse
+          uses: docker/build-push-action@v5
+          with:
+              context: .
+              file: Dockerfile
+              push: true
+              tags: ${{ secrets.DOCKERHUB_USER }}/harmogestion-api:latest
+        - run: echo "Image poussée sur DockerHub avec succès"
