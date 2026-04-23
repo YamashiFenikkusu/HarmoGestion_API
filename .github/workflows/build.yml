@@ -61,8 +61,8 @@ jobs:
             -   name: Build et pousse
                 uses: docker/build-push-action@v5
                 with:
-                    context: .
-                    file: Dockerfile
+                    context: target
+                    file: target/Dockerfile
                     push: true
-                    tags: yamashifenikkusu/harmogestion-api
+                    tags: yamashifenikkusu/harmogestion-api:latest
             -   run: echo "Image poussée sur DockerHub avec succès"
