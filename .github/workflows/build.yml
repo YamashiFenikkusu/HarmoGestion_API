@@ -58,6 +58,13 @@ jobs:
                 uses: actions/download-artifact@v4
                 with:
                     name: package.jar
+
+            -   name: Debug Docker tag
+                run: |
+                    echo "Docker image: ${DOCKERHUB_USER}/harmogestion-api:latest"
+                env:
+                    DOCKERHUB_USER: ${{ secrets.DOCKERHUB_USER }}
+
             -   name: Build et pousse
                 uses: docker/build-push-action@v5
                 with:
