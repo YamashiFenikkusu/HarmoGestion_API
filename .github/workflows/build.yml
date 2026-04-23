@@ -58,6 +58,8 @@ jobs:
                 uses: actions/download-artifact@v4
                 with:
                     name: package.jar
+            -   name: Liste des fichiers
+                run: ls ${{ github.workspace }}
             -   name: Build et pousse
                 uses: docker/build-push-action@v5
                 with:
