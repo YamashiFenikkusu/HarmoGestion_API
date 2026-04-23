@@ -64,5 +64,5 @@ jobs:
                     context: .
                     file: Dockerfile
                     push: true
-                    tags: ${{ secrets.DOCKERHUB_USER }}/harmogestion-api:latest
+                    tags: ${{ secrets.DOCKERHUB_USER }}/harmogestion-api
             -   run: echo "Image poussée sur DockerHub avec succès"
